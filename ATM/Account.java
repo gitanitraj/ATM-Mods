@@ -10,6 +10,9 @@ public class Account implements java.io.Serializable {
 	private double checkingBalance = 0;
 	private double savingBalance = 0;
 
+	private java.util.List<String> transactionHistory = new java.util.ArrayList<>();
+
+
 	Scanner input = new Scanner(System.in);
 	DecimalFormat moneyFormat = new DecimalFormat("'$'###,##0.00");
 
