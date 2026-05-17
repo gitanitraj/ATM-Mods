@@ -77,7 +77,8 @@ public class OptionMenu {
             System.out.println(" Type 2 - Withdraw Funds");
             System.out.println(" Type 3 - Deposit Funds");
             System.out.println(" Type 4 - Transfer Funds");
-            System.out.println(" Type 5 - Exit");
+			System.out.println(" Type 5 - View Transaction History"); 
+            System.out.println(" Type 6 - Exit");
             System.out.print("\nChoice: ");
 
             int selection = menuInput.nextInt();
@@ -132,8 +133,12 @@ public class OptionMenu {
             }
 
             case 5:
-                end = true;
-                break;
+    			showTransactionHistory(acc);   // <-- ADDED
+    			break;
+
+			case 6:
+    			end = true;
+    			break;
 
             default:
                 System.out.println("\nInvalid Choice.");
@@ -154,7 +159,8 @@ public class OptionMenu {
             System.out.println(" Type 2 - Withdraw Funds");
             System.out.println(" Type 3 - Deposit Funds");
             System.out.println(" Type 4 - Transfer Funds");
-            System.out.println(" Type 5 - Exit");
+			System.out.println(" Type 5 - View Transaction History");
+            System.out.println(" Type 6 - Exit");
             System.out.print("Choice: ");
 
             int selection = menuInput.nextInt();
@@ -215,7 +221,15 @@ public class OptionMenu {
                 break;
             }
 
-                    default:
+            case 5:
+    			showTransactionHistory(acc);
+    			break;
+
+			case 6:
+    			end = true;
+    			break;
+
+			default:
                 System.out.println("\nInvalid Choice.");
             }
 
@@ -224,6 +238,20 @@ public class OptionMenu {
             menuInput.next();
         }
     }
+}
+
+	public void showTransactionHistory(Account acc) {
+    System.out.println("\n=== Transaction History for Customer " + acc.getCustomerNumber() + " ===");
+
+    if (acc.getTransactionHistory().isEmpty()) {
+        System.out.println("No transactions recorded.");
+    } else {
+        for (String entry : acc.getTransactionHistory()) {
+            System.out.println(entry);
+        }
+    }
+
+    System.out.println("==============================================\n");
 }
 
 	public void createAccount() throws IOException {
