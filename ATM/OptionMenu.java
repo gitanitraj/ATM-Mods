@@ -226,7 +226,6 @@ public class OptionMenu {
     }
 }
 
-
 	public void createAccount() throws IOException {
 		int cst_no = 0;
 		
@@ -324,5 +323,20 @@ public class OptionMenu {
         	System.out.println("Error writing to log file: " + e.getMessage());
     	}
 	}
+
+	public void showAllCustomerBalances() {
+    System.out.println("\n=== All Customer Balances ===");
+
+    for (Map.Entry<Integer, Account> entry : data.entrySet()) {
+        Account acc = entry.getValue();
+
+        System.out.println("\nCustomer Number: " + acc.getCustomerNumber());
+        System.out.println(" Checking Balance: " + moneyFormat.format(acc.getCheckingBalance()));
+        System.out.println(" Savings Balance:  " + moneyFormat.format(acc.getSavingBalance()));
+    }
+
+    System.out.println("\n==============================\n");
+	}
+
 
 }
