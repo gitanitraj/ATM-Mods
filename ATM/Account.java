@@ -2,7 +2,8 @@ import java.text.DecimalFormat;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Account {
+public class Account implements java.io.Serializable {
+
 	// variables
 	private int customerNumber;
 	private int pinNumber;
