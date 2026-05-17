@@ -36,7 +36,6 @@ public class OptionMenu {
     }
 }
 
-
 	public void getAccountType(Account acc) {
 		boolean end = false;
 		while (!end) {
@@ -88,7 +87,15 @@ public class OptionMenu {
 					System.out.println("\nChecking Account Balance: " + moneyFormat.format(acc.getCheckingBalance()));
 					break;
 				case 2:
+					double before = acc.getCheckingBalance();
 					acc.getCheckingWithdrawInput();
+					double after = acc.getCheckingBalance();
+
+				String msg = "WITHDRAW CHECKING | Customer " + acc.getCustomerNumber() +
+             		" | Before: " + moneyFormat.format(before) +
+             		" | After: " + moneyFormat.format(after);
+				logTransaction(msg);
+				acc.addTransaction(msg);
 					break;
 				case 3:
 					acc.getCheckingDepositInput();
