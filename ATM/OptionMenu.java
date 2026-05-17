@@ -262,6 +262,7 @@ public class OptionMenu {
 			try {
 				System.out.println("\n Type 1 - Login");
 				System.out.println(" Type 2 - Create Account");
+				System.out.println(" Type 3 - Show All Customer Balances");
 				System.out.print("\nChoice: ");
 				int choice = menuInput.nextInt();
 				switch (choice) {
@@ -273,6 +274,10 @@ public class OptionMenu {
 					createAccount();
 					end = true;
 					break;
+				case 3:
+    				showAllCustomerBalances();
+    				break;
+
 				default:
 					System.out.println("\nInvalid Choice.");
 				}
