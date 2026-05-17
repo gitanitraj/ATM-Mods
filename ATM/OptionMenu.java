@@ -12,33 +12,30 @@ public class OptionMenu {
 	HashMap<Integer, Account> data = new HashMap<Integer, Account>();
 
 	public void getLogin() throws IOException {
-		boolean end = false;
-		int customerNumber = 0;
-		int pinNumber = 0;
-		while (!end) {
-			try {
-				System.out.print("\nEnter your customer number: ");
-				customerNumber = menuInput.nextInt();
-				System.out.print("\nEnter your PIN number: ");
-				pinNumber = menuInput.nextInt();
-				Iterator it = data.entrySet().iterator();
-				while (it.hasNext()) {
-					Map.Entry pair = (Map.Entry) it.next();
-					Account acc = (Account) pair.getValue();
-					if (data.containsKey(customerNumber) && pinNumber == acc.getPinNumber()) {
-						getAccountType(acc);
-						end = true;
-						break;
-					}
-				}
-				if (!end) {
-					System.out.println("\nWrong Customer Number or Pin Number");
-				}
-			} catch (InputMismatchException e) {
-				System.out.println("\nInvalid Character(s). Only Numbers.");
-			}
-		}
-	}
+    while (true) {
+        try {
+            System.out.print("\nEnter your customer number: ");
+            int customerNumber = menuInput.nextInt();
+
+            System.out.print("Enter your PIN number: ");
+            int pinNumber = menuInput.nextInt();
+
+            Account acc = data.get(customerNumber);
+
+            if (acc != null && acc.getPinNumber() == pinNumber) {
+                getAccountType(acc);
+                return;
+            }
+
+            System.out.println("\nWrong Customer Number or Pin Number");
+
+        } catch (InputMismatchException e) {
+            System.out.println("\nInvalid Character(s). Only Numbers.");
+            menuInput.next();
+        }
+    }
+}
+
 
 	public void getAccountType(Account acc) {
 		boolean end = false;
