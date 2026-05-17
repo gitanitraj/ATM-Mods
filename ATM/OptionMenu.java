@@ -233,4 +233,16 @@ public class OptionMenu {
     }
 }
 
+	public void logTransaction(String message) {
+    	try (java.io.FileWriter fw = new java.io.FileWriter("transactions.log", 	true);
+         	java.io.BufferedWriter bw = new java.io.BufferedWriter(fw);
+         	java.io.PrintWriter out = new java.io.PrintWriter(bw)) {
+
+        	out.println(message);
+
+    	} catch (Exception e) {
+        	System.out.println("Error writing to log file: " + e.getMessage());
+    	}
+	}
+
 }
