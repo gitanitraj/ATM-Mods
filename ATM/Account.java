@@ -19,6 +19,11 @@ public class Account implements java.io.Serializable {
     transactionHistory.add(message);
 	}
 
+	// GETTER
+	public java.util.List<String> getTransactionHistory() {
+    return transactionHistory;
+	}
+
 	public Account() {
 	}
 
