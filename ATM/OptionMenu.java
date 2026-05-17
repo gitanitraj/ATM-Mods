@@ -207,4 +207,30 @@ public class OptionMenu {
 		menuInput.close();
 		System.exit(0);
 	}
+
+	@SuppressWarnings("unchecked")
+	public void loadAccounts() {
+    try (java.io.ObjectInputStream ois =
+            new java.io.ObjectInputStream(new java.io.FileInputStream("accounts.dat"))) {
+
+        data = (HashMap<Integer, Account>) ois.readObject();
+        System.out.println("Accounts loaded successfully.");
+
+    } catch (Exception e) {
+        System.out.println("No saved accounts found. Starting fresh.");
+    }
+}
+
+	public void saveAccounts() {
+    try (java.io.ObjectOutputStream oos =
+            new java.io.ObjectOutputStream(new java.io.FileOutputStream("accounts.dat"))) {
+
+        oos.writeObject(data);
+        System.out.println("Accounts saved successfully.");
+
+    } catch (Exception e) {
+        System.out.println("Error saving accounts: " + e.getMessage());
+    }
+}
+
 }
