@@ -134,7 +134,16 @@ public class OptionMenu {
 					System.out.println("\nSavings Account Balance: " + moneyFormat.format(acc.getSavingBalance()));
 					break;
 				case 2:
+					double before = acc.getSavingBalance();
 					acc.getsavingWithdrawInput();
+					double after = acc.getSavingBalance();
+
+					String msg = "WITHDRAW SAVINGS | Customer " + acc.getCustomerNumber() +
+             		" | Before: " + moneyFormat.format(before) +
+             		" | After: " + moneyFormat.format(after);
+
+					logTransaction(msg);
+					acc.addTransaction(msg);
 					break;
 				case 3:
 					acc.getSavingDepositInput();
