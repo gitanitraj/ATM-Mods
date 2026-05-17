@@ -69,100 +69,163 @@ public class OptionMenu {
 	}
 
 	public void getChecking(Account acc) {
-		boolean end = false;
-		while (!end) {
-			try {
-				System.out.println("\nChecking Account: ");
-				System.out.println(" Type 1 - View Balance");
-				System.out.println(" Type 2 - Withdraw Funds");
-				System.out.println(" Type 3 - Deposit Funds");
-				System.out.println(" Type 4 - Transfer Funds");
-				System.out.println(" Type 5 - Exit");
-				System.out.print("\nChoice: ");
+    	boolean end = false;
+    	while (!end) {
+        	try {
+            System.out.println("\nChecking Account: ");
+            System.out.println(" Type 1 - View Balance");
+            System.out.println(" Type 2 - Withdraw Funds");
+            System.out.println(" Type 3 - Deposit Funds");
+            System.out.println(" Type 4 - Transfer Funds");
+            System.out.println(" Type 5 - Exit");
+            System.out.print("\nChoice: ");
 
-				int selection = menuInput.nextInt();
+            int selection = menuInput.nextInt();
+            String msg; // declare once for all cases
 
-				switch (selection) {
-				case 1:
-					System.out.println("\nChecking Account Balance: " + moneyFormat.format(acc.getCheckingBalance()));
-					break;
-				case 2:
-					double before = acc.getCheckingBalance();
-					acc.getCheckingWithdrawInput();
-					double after = acc.getCheckingBalance();
+            switch (selection) {
+            case 1:
+                System.out.println("\nChecking Account Balance: " + moneyFormat.format(acc.getCheckingBalance()));
+                break;
 
-				String msg = "WITHDRAW CHECKING | Customer " + acc.getCustomerNumber() +
-             		" | Before: " + moneyFormat.format(before) +
-             		" | After: " + moneyFormat.format(after);
-				logTransaction(msg);
-				acc.addTransaction(msg);
-					break;
-				case 3:
-					acc.getCheckingDepositInput();
-					break;
+            case 2: {
+                double beforeW = acc.getCheckingBalance();
+                acc.getCheckingWithdrawInput();
+                double afterW = acc.getCheckingBalance();
 
-				case 4:
-					acc.getTransferInput("Checking");
-					break;
-				case 5:
-					end = true;
-					break;
-				default:
-					System.out.println("\nInvalid Choice.");
-				}
-			} catch (InputMismatchException e) {
-				System.out.println("\nInvalid Choice.");
-				menuInput.next();
-			}
-		}
-	}
+                msg = "WITHDRAW CHECKING | Customer " + acc.getCustomerNumber() +
+                      " | Before: " + moneyFormat.format(beforeW) +
+                      " | After: " + moneyFormat.format(afterW);
+                logTransaction(msg);
+                acc.addTransaction(msg);
+                break;
+            }
+
+            case 3: {
+                double beforeD = acc.getCheckingBalance();
+                acc.getCheckingDepositInput();
+                double afterD = acc.getCheckingBalance();
+
+                msg = "DEPOSIT CHECKING | Customer " + acc.getCustomerNumber() +
+                      " | Before: " + moneyFormat.format(beforeD) +
+                      " | After: " + moneyFormat.format(afterD);
+                logTransaction(msg);
+                acc.addTransaction(msg);
+                break;
+            }
+
+            case 4: {
+                double beforeChecking = acc.getCheckingBalance();
+                double beforeSaving = acc.getSavingBalance();
+
+                acc.getTransferInput("Checking");
+
+                double afterChecking = acc.getCheckingBalance();
+                double afterSaving = acc.getSavingBalance();
+
+                msg = "TRANSFER CHECKING→SAVINGS | Customer " + acc.getCustomerNumber() +
+                      " | Checking: " + moneyFormat.format(beforeChecking) + " → " + moneyFormat.format(afterChecking) +
+                      " | Savings: " + moneyFormat.format(beforeSaving) + " → " + moneyFormat.format(afterSaving);
+                logTransaction(msg);
+                acc.addTransaction(msg);
+                break;
+            }
+
+            case 5:
+                end = true;
+                break;
+
+            default:
+                System.out.println("\nInvalid Choice.");
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("\nInvalid Choice.");
+            menuInput.next();
+        }
+    }
+}
 
 	public void getSaving(Account acc) {
-		boolean end = false;
-		while (!end) {
-			try {
-				System.out.println("\nSavings Account: ");
-				System.out.println(" Type 1 - View Balance");
-				System.out.println(" Type 2 - Withdraw Funds");
-				System.out.println(" Type 3 - Deposit Funds");
-				System.out.println(" Type 4 - Transfer Funds");
-				System.out.println(" Type 5 - Exit");
-				System.out.print("Choice: ");
-				int selection = menuInput.nextInt();
-				switch (selection) {
-				case 1:
-					System.out.println("\nSavings Account Balance: " + moneyFormat.format(acc.getSavingBalance()));
-					break;
-				case 2:
-					double before = acc.getSavingBalance();
-					acc.getsavingWithdrawInput();
-					double after = acc.getSavingBalance();
+    boolean end = false;
+    while (!end) {
+        try {
+            System.out.println("\nSavings Account: ");
+            System.out.println(" Type 1 - View Balance");
+            System.out.println(" Type 2 - Withdraw Funds");
+            System.out.println(" Type 3 - Deposit Funds");
+            System.out.println(" Type 4 - Transfer Funds");
+            System.out.println(" Type 5 - Exit");
+            System.out.print("Choice: ");
 
-					String msg = "WITHDRAW SAVINGS | Customer " + acc.getCustomerNumber() +
-             		" | Before: " + moneyFormat.format(before) +
-             		" | After: " + moneyFormat.format(after);
+            int selection = menuInput.nextInt();
+            String msg; // declare once for all cases
 
-					logTransaction(msg);
-					acc.addTransaction(msg);
-					break;
-				case 3:
-					acc.getSavingDepositInput();
-					break;
-				case 4:
-					acc.getTransferInput("Savings");
-					break;
-				case 5:
-					end = true;
-					break;
-				default:
-					System.out.println("\nInvalid Choice.");
-				}
-			} catch (InputMismatchException e) {
-				System.out.println("\nInvalid Choice.");
-				menuInput.next();
-			}
-		}
-	}
+            switch (selection) {
+
+            case 1:
+                System.out.println("\nSavings Account Balance: " +
+                                   moneyFormat.format(acc.getSavingBalance()));
+                break;
+
+            case 2: { // WITHDRAW SAVINGS
+                double beforeW = acc.getSavingBalance();
+                acc.getsavingWithdrawInput();
+                double afterW = acc.getSavingBalance();
+
+                msg = "WITHDRAW SAVINGS | Customer " + acc.getCustomerNumber() +
+                      " | Before: " + moneyFormat.format(beforeW) +
+                      " | After: " + moneyFormat.format(afterW);
+
+                logTransaction(msg);
+                acc.addTransaction(msg);
+                break;
+            }
+
+            case 3: { // DEPOSIT SAVINGS
+                double beforeD = acc.getSavingBalance();
+                acc.getSavingDepositInput();
+                double afterD = acc.getSavingBalance();
+
+                msg = "DEPOSIT SAVINGS | Customer " + acc.getCustomerNumber() +
+                      " | Before: " + moneyFormat.format(beforeD) +
+                      " | After: " + moneyFormat.format(afterD);
+
+                logTransaction(msg);
+                acc.addTransaction(msg);
+                break;
+            }
+
+            case 4: { // TRANSFER SAVINGS → CHECKING
+                double beforeChecking = acc.getCheckingBalance();
+                double beforeSaving = acc.getSavingBalance();
+
+                acc.getTransferInput("Savings");
+
+                double afterChecking = acc.getCheckingBalance();
+                double afterSaving = acc.getSavingBalance();
+
+                msg = "TRANSFER SAVINGS→CHECKING | Customer " + acc.getCustomerNumber() +
+                      " | Checking: " + moneyFormat.format(beforeChecking) +
+                      " → " + moneyFormat.format(afterChecking) +
+                      " | Savings: " + moneyFormat.format(beforeSaving) +
+                      " → " + moneyFormat.format(afterSaving);
+
+                logTransaction(msg);
+                acc.addTransaction(msg);
+                break;
+            }
+
+                    default:
+                System.out.println("\nInvalid Choice.");
+            }
+
+        } catch (InputMismatchException e) {
+            System.out.println("\nInvalid Choice.");
+            menuInput.next();
+        }
+    }
+}
+
 
 	public void createAccount() throws IOException {
 		int cst_no = 0;
@@ -191,6 +254,7 @@ public class OptionMenu {
 		System.out.println("\nRedirecting to login....");
 		getLogin();
 	}
+
 
 	public void mainMenu() throws IOException {
 		loadAccounts();
