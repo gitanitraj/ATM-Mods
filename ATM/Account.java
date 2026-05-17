@@ -12,9 +12,12 @@ public class Account implements java.io.Serializable {
 
 	private java.util.List<String> transactionHistory = new java.util.ArrayList<>();
 
-
 	Scanner input = new Scanner(System.in);
 	DecimalFormat moneyFormat = new DecimalFormat("'$'###,##0.00");
+
+	public void addTransaction(String message) {
+    transactionHistory.add(message);
+	}
 
 	public Account() {
 	}
